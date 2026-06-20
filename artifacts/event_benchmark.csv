@@ -1,0 +1,3 @@
+edition,configuration,features,log_loss,accuracy,brier,log_loss_delta,accuracy_delta,brier_delta
+2022,+ StatsBomb event dynamics,45,1.0679227594776854,0.5,0.6227986288896933,-0.013060970034960206,-0.03125,-0.006510148634079838
+2022,Baseline scores + state,32,1.0809837295126457,0.53125,0.6293087775237731,0.0,0.0,0.0

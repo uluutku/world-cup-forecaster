@@ -1,0 +1,14 @@
+stage,candidate,evaluation_scope,folds,log_loss,accuracy,log_loss_delta,accuracy_delta,interval_low,interval_high,availability,decision,log_loss_basis_points,accuracy_points
+Architecture,Calibrated hybrid,2006–2022 · 5 World Cups,5,0.9596465217737542,0.578125,0.0,0.0,,,CPU,Production baseline,0.0,0.0
+Architecture,CUDA XGBoost,2006–2022 · 5 World Cups,5,0.9772060200627084,0.53125,0.01755949828895402,-0.046875,,,CUDA,Rejected,175.5949828895402,-4.6875
+Architecture,CUDA residual network,2006–2022 · 5 World Cups,5,0.9784279165314395,0.553125,0.018781394757685123,-0.025,,,CUDA,Rejected,187.81394757685123,-2.5
+Environment,Baseline scores + state,2006–2022 · 5 World Cups,5,0.9596465217737542,0.578125,0.0,0.0,,,Pre-match derivable,Production baseline,0.0,0.0
+Environment,+ travel context,2006–2022 · 5 World Cups,5,0.9635651904573358,0.56875,0.00391866868358138,-0.009375,,,Pre-match derivable,Rejected,39.1866868358138,-0.9375
+Environment,+ oracle weather,2006–2022 · 5 World Cups,5,0.969832314665763,0.56875,0.010185792892008839,-0.009375,,,Retrospective reanalysis,Oracle only,101.8579289200884,-0.9375
+Environment,+ oracle weather + travel,2006–2022 · 5 World Cups,5,0.9731752387005415,0.54375,0.013528716926787202,-0.034375,,,Retrospective reanalysis,Oracle only,135.28716926787203,-3.4375000000000004
+Event + lineup,+ StatsBomb event dynamics,2022 World Cup · coverage-limited,1,1.0679227594776854,0.5,-0.013060970034960206,-0.03125,-0.03256500117629293,0.008137926026388343,Pre-match event history,Coverage-limited,-130.60970034960206,-3.125
+Event + lineup,Baseline scores + state,2022 World Cup · coverage-limited,1,1.0809837295126457,0.53125,0.0,0.0,0.0,0.0,Pre-match event history,Production baseline,0.0,0.0
+Event + lineup,+ event + announced lineup,2022 World Cup · coverage-limited,1,1.0845078830261619,0.515625,0.003524153513516204,-0.015625,-0.07233064973886884,0.07987014824915083,After official XI release,Coverage-limited,35.24153513516204,-1.5625
+Event + lineup,+ event + lineup + travel,2022 World Cup · coverage-limited,1,1.0954561407030676,0.53125,0.014472411190421974,0.0,-0.06464128511717561,0.09427667667104027,After official XI release,Coverage-limited,144.72411190421974,0.0
+Event + lineup,+ event + lineup + oracle weather + travel,2022 World Cup · coverage-limited,1,1.0964537369220626,0.453125,0.015470007409416953,-0.078125,-0.06603406291238426,0.10023429157934367,After official XI release,Coverage-limited,154.70007409416954,-7.8125
+Event + lineup,+ announced lineup,2022 World Cup · coverage-limited,1,1.0972271726957965,0.515625,0.016243443183150852,-0.015625,-0.06425450353740197,0.09526538378793062,After official XI release,Coverage-limited,162.4344318315085,-1.5625

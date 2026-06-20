@@ -1,0 +1,10 @@
+name = "baseline_v2"
+training_window_years = 28
+random_seed = 2026
+world_cup_folds = [2006, 2010, 2014, 2018, 2022]
+simulation_runs = 5000
+
+[model]
+families = ["multinomial_logistic", "hist_gradient_boosting", "dixon_coles"]
+calibration = "temperature_scaling"
+blend = "simplex_optimized"

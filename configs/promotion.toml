@@ -1,0 +1,5 @@
+minimum_folds = 5
+minimum_log_loss_improvement = 0.001
+minimum_accuracy_delta = 0.0
+allowed_availability = ["CPU", "CUDA", "Pre-match derivable"]
+blocked_availability = ["Retrospective reanalysis", "After official XI release"]

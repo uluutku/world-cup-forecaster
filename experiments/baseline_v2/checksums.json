@@ -1,0 +1,46 @@
+[
+  {
+    "Path": "artifacts\\backtest_predictions.csv",
+    "Hash": "464F481C62D8BA308AE5E3FA120A55EF64569AFB883C8305C5F41CBD268B2327"
+  },
+  {
+    "Path": "artifacts\\benchmark_ladder.csv",
+    "Hash": "C5DBAB3743FF1A65A5A648F2C9AA721D7E2D4083B6D5166D7645C1F8CD6267A4"
+  },
+  {
+    "Path": "artifacts\\blind_team_leaderboard.csv",
+    "Hash": "02EA84ED3D9FC117E47C217D46C4AC79F0DDB498EEB542AAE9C722D7F98B7DB4"
+  },
+  {
+    "Path": "artifacts\\feature_ablation.csv",
+    "Hash": "B5AFCD93E846596F6B3F0B6D2DDF00FB0B6C804491A63E25A20969F476A276D3"
+  },
+  {
+    "Path": "artifacts\\model.joblib",
+    "Hash": "E3B7A43BB41564B4CF0505B5EE3D762570C07C0BD30893B0EB4CD1B7535F2FFA"
+  },
+  {
+    "Path": "artifacts\\predictions_2026.csv",
+    "Hash": "FEB824FBDFD764924773227BA190D6C00CA3CCCA8D60BB691E1A5614337B00C1"
+  },
+  {
+    "Path": "artifacts\\report.json",
+    "Hash": "56A605C9DBBE71CC7B42A80AEFC2E8BAB64C6B4FD05B6199311BCE6782FE8A36"
+  },
+  {
+    "Path": "artifacts\\simulation_2026.csv",
+    "Hash": "4377D3BDB6D8EDB9EF767F07A8B66E5843FE02DD41453AACEDD3A9835785E529"
+  },
+  {
+    "Path": "artifacts\\turkiye_blind_forecast.csv",
+    "Hash": "8F7ABF0508608768BEA20B9BD1DB2D5AB6ADDE1F12B251B83FCA5CC8676700AF"
+  },
+  {
+    "Path": "artifacts\\world_cup_2026_blind_forecast.csv",
+    "Hash": "14CA0B25A5F3E4E4998DD2D730C4802735E5CC72C933FA59B3F1170ABBD2EB7F"
+  },
+  {
+    "Path": "results_snapshot.csv",
+    "Hash": "DACD6DCF2AE54A9ADA1DCDAC4D7279BA483576F77EA5ED5983B76F08F70B5D78"
+  }
+]

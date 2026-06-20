@@ -1,0 +1,4 @@
+"date","home_team","away_team","opponent","home_score","away_score","is_completed","p_home","p_draw","p_away","p_team_win","p_opponent_win","model_pick","team_view_pick","actual_outcome_probability","actual_result","correct_pick"
+"2026-06-13","Australia","Turkey","Australia","2.0","0.0","True","0.31673804008831646","0.2896504209964191","0.39361153891526446","0.39361153891526446","0.31673804008831646","Away win","Turkey win","0.31673804008831646","Australia win","False"
+"2026-06-19","Turkey","Paraguay","Paraguay","0.0","1.0","True","0.38455296781299825","0.29138069139945166","0.32406634078755003","0.38455296781299825","0.32406634078755003","Home win","Turkey win","0.32406634078755003","Paraguay win","False"
+"2026-06-25","United States","Turkey","United States","","","False","0.45439402895988185","0.27540679259349","0.2701991784466281","0.2701991784466281","0.45439402895988185","Home win","United States win","","",""

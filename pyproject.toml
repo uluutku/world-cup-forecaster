@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "world-cup-intelligence"
+version = "2.0.0"
+description = "Research-grade probabilistic World Cup forecasting and tournament intelligence."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{name = "Utku Ulu"}]
+keywords = ["machine-learning", "football", "forecasting", "mlops", "calibration"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "fastapi>=0.115",
+  "joblib>=1.4",
+  "matplotlib>=3.9",
+  "numpy>=2.0",
+  "pandas>=2.2",
+  "pillow>=12.2.0",
+  "plotly>=6.0",
+  "pyarrow>=23.0.1",
+  "pypdf>=6.0",
+  "scikit-learn>=1.6",
+  "scipy>=1.12",
+  "streamlit>=1.54.0",
+  "uvicorn>=0.34",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2",
+  "pip-audit>=2.8",
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "ruff>=0.11",
+]
+gpu = ["torch>=2.6", "xgboost>=3.2"]
+
+[project.urls]
+Documentation = "https://github.com/uluutku/world-cup-intelligence#readme"
+Issues = "https://github.com/uluutku/world-cup-intelligence/issues"
+Repository = "https://github.com/uluutku/world-cup-intelligence"
+
+[project.scripts]
+worldcup-train = "worldcup_predictor.pipeline:main"
+worldcup-advanced = "worldcup_predictor.advanced_pipeline:main"
+worldcup-api = "worldcup_predictor.api:run"
+worldcup-artifacts = "worldcup_predictor.artifacts:main"
+worldcup-promote = "worldcup_predictor.promotion:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+filterwarnings = [
+  "ignore:Using .* with .* is deprecated",
+]
+
+[tool.coverage.run]
+source = ["worldcup_predictor"]
+omit = ["src/worldcup_predictor/architectures.py"]
+
+[tool.coverage.report]
+fail_under = 30
+show_missing = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
