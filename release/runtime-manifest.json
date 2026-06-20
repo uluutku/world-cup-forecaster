@@ -1,0 +1,121 @@
+{
+  "version": "v2.0.0",
+  "generated_from": "versioned pipeline outputs",
+  "files": [
+    {
+      "path": "artifacts/model.joblib",
+      "bytes": 1708535,
+      "sha256": "3ae45092aaf3b8abb49a5bf2710fe5e61ffd2556497d79b7b82e8dc0a63cde08"
+    },
+    {
+      "path": "artifacts/report.json",
+      "bytes": 192106,
+      "sha256": "1f9d3bd4103785c8ed0bbe9efd5d38579dae3e6a00ec609488e8b64b47715523"
+    },
+    {
+      "path": "artifacts/advanced_report.json",
+      "bytes": 9292,
+      "sha256": "626cc7f1a28dd9067f9555df5d0e688de07a87a846720d01707c20e907d5d438"
+    },
+    {
+      "path": "artifacts/predictions_2026.csv",
+      "bytes": 17080,
+      "sha256": "feb824fbdfd764924773227ba190d6c00ca3ccca8d60bb691e1a5614337b00c1"
+    },
+    {
+      "path": "artifacts/simulation_2026.csv",
+      "bytes": 3069,
+      "sha256": "4377d3bdb6d8edb9ef767f07a8b66e5843fe02dd41453aacedd3a9835785e529"
+    },
+    {
+      "path": "artifacts/backtest_predictions.csv",
+      "bytes": 58509,
+      "sha256": "464f481c62d8ba308ae5e3fa120a55ef64569afb883c8305c5f41cbd268b2327"
+    },
+    {
+      "path": "artifacts/benchmark_ladder.csv",
+      "bytes": 4510,
+      "sha256": "c5dbab3743ff1a65a5a648f2c9aa721d7e2d4083b6d5166d7645c1f8cd6267a4"
+    },
+    {
+      "path": "artifacts/blind_team_leaderboard.csv",
+      "bytes": 3577,
+      "sha256": "02ea84ed3d9fc117e47c217d46c4ac79f0ddb498eeb542aae9c722d7f98b7db4"
+    },
+    {
+      "path": "artifacts/data_coverage.csv",
+      "bytes": 589,
+      "sha256": "13f5214c0e936b04dc92ceeecd40ef8d762c1dcde732e7ef8697edab40ea9e31"
+    },
+    {
+      "path": "artifacts/enrichment_benchmark.csv",
+      "bytes": 18365,
+      "sha256": "c1731d65ec5ae20de6bc0662db4edf0a648af99ba6d0e06c966c55b9f74ddf5c"
+    },
+    {
+      "path": "artifacts/feature_ablation.csv",
+      "bytes": 1233,
+      "sha256": "b5afcd93e846596f6b3f0b6d2ddf00fb0b6c804491a63e25a20969f476a276d3"
+    },
+    {
+      "path": "artifacts/feature_drift.csv",
+      "bytes": 1191,
+      "sha256": "348a23f09559ff7345efc97cbf17797582fd999e5a91e59a87a38fe36459c6c8"
+    },
+    {
+      "path": "artifacts/weather_benchmark.csv",
+      "bytes": 6477,
+      "sha256": "e99b2f298f8067b589c06f626bda45d6f67aaaf7f93a3bd409ad92c90afd9afb"
+    },
+    {
+      "path": "artifacts/architecture_benchmark.csv",
+      "bytes": 3789,
+      "sha256": "fe0233e88a926b2f46919a625cad90b8e830264eb3809df5eb2c53d6077a581a"
+    },
+    {
+      "path": "artifacts/event_benchmark.csv",
+      "bytes": 320,
+      "sha256": "38690936629e0d1d045be0008f7fdc3ff1826ab52b84bc467a89196e4ced87c9"
+    },
+    {
+      "path": "artifacts/lineup_benchmark.csv",
+      "bytes": 857,
+      "sha256": "a8acaf28258a1a2d88a142fdeb10fc80af9ae3eb715b4d386536d3c24d074459"
+    },
+    {
+      "path": "artifacts/advanced_experiment_matrix.csv",
+      "bytes": 2748,
+      "sha256": "6234517365bf65022ed9a1b1c3c25297e8ccf2b008bf17b6eb381dca37e887ef"
+    },
+    {
+      "path": "artifacts/squad_2026_analytics.csv",
+      "bytes": 15994,
+      "sha256": "240c47c33b196fbfad5f4f441f7b8478ddc94b65598a7088e2019540e5ab56e1"
+    },
+    {
+      "path": "artifacts/squad_2026_players.csv",
+      "bytes": 138799,
+      "sha256": "66db394ea52a5d35e51f62c006c40fc37007a95d72fcadef6d83e9cc4c2117d4"
+    },
+    {
+      "path": "artifacts/turkiye_2026.csv",
+      "bytes": 1016,
+      "sha256": "4324c07665346ecd5e072958dcc57cac8f573298abf82b5c986ef29837df550e"
+    },
+    {
+      "path": "artifacts/turkiye_blind_forecast.csv",
+      "bytes": 797,
+      "sha256": "05f46ccbb048feca97c754012d16b22175e8629dcacf6f570f054b890a0c7f01"
+    },
+    {
+      "path": "artifacts/turkiye_scenarios.csv",
+      "bytes": 191,
+      "sha256": "eed6d14850864d13b226e4cf85756d0c4989bae0a5283ef5f8b7b616aa34f95e"
+    },
+    {
+      "path": "artifacts/world_cup_2026_blind_forecast.csv",
+      "bytes": 9039,
+      "sha256": "38cf79494502d629dc2d8046e28c44668f0edff0dde7b1c6c9ec9499fa03dbdb"
+    }
+  ]
+}

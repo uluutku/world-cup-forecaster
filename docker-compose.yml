@@ -1,0 +1,28 @@
+services:
+  dashboard:
+    build:
+      context: .
+      args:
+        WCI_ARTIFACT_BUNDLE_URL: ${WCI_ARTIFACT_BUNDLE_URL:-}
+    command: streamlit run app.py --server.address=0.0.0.0
+    ports:
+      - "8501:8501"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      args:
+        WCI_ARTIFACT_BUNDLE_URL: ${WCI_ARTIFACT_BUNDLE_URL:-}
+    command: uvicorn worldcup_predictor.api:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5

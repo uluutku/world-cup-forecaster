@@ -1,0 +1,26 @@
+name: Research proposal
+description: Propose a model, data source or evaluation change
+title: "[Research]: "
+labels: ["research"]
+body:
+  - type: textarea
+    id: hypothesis
+    attributes:
+      label: Hypothesis
+      description: What measurable improvement do you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: availability
+    attributes:
+      label: Information availability
+      description: Explain how timestamps prevent future leakage.
+    validations:
+      required: true
+  - type: textarea
+    id: evaluation
+    attributes:
+      label: Evaluation plan
+      description: Folds, metrics, coverage and promotion criteria.
+    validations:
+      required: true

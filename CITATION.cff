@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software or its experiment design, please cite it as below."
+title: "World Cup Intelligence"
+type: software
+version: 2.0.0
+date-released: 2026-06-21
+authors:
+  - family-names: "Ulu"
+    given-names: "Utku"
+repository-code: "https://github.com/uluutku/world-cup-intelligence"
+license: MIT
+keywords:
+  - probabilistic forecasting
+  - football analytics
+  - calibration
+  - machine learning
+  - MLOps

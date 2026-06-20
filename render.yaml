@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: world-cup-intelligence
+    runtime: python
+    plan: free
+    buildCommand: >-
+      pip install -e . &&
+      worldcup-artifacts --url
+      https://github.com/uluutku/world-cup-intelligence/releases/download/v2.0.0/world-cup-intelligence-v2.0.0.zip
+    startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
+    healthCheckPath: /_stcore/health
+
+  - type: web
+    name: world-cup-intelligence-api
+    runtime: python
+    plan: free
+    buildCommand: >-
+      pip install -e . &&
+      worldcup-artifacts --url
+      https://github.com/uluutku/world-cup-intelligence/releases/download/v2.0.0/world-cup-intelligence-v2.0.0.zip
+    startCommand: uvicorn worldcup_predictor.api:app --host 0.0.0.0 --port=$PORT
+    healthCheckPath: /health
