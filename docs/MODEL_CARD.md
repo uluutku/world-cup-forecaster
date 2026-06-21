@@ -16,7 +16,7 @@ The forecast blends four things:
 - a regularised multinomial logistic regression,
 - a histogram gradient-boosting classifier,
 - two Poisson goal-rate models (one per team),
-- a Dixon–Coles correction that handles how low-scoring results depend on each other.
+- a Dixon-Coles correction that handles how low-scoring results depend on each other.
 
 The blend weights and the calibration temperature are tuned together on a chronological hold-out
 window. Training games are weighted by how recent and how important they were.

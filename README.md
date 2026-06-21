@@ -15,7 +15,7 @@ which I locked in and froze before the opening match.
 
 In short: it learns from about 49,000 international results going back to 1872, plus the
 team-strength, form, rest and head-to-head context I rebuild before every game. Three models
-share the work, a logistic regression, a gradient-boosting classifier, and a Dixon–Coles
+share the work, a logistic regression, a gradient-boosting classifier, and a Dixon-Coles
 Poisson goals model, blended together and calibrated so the probabilities can be trusted at
 face value. The detail is further down.
 
@@ -41,7 +41,7 @@ After simulating the tournament 5,000 times, these are the favourites:
 | Portugal | 2.6% | 6.1% |
 
 How to read it: Argentina is the clear favourite, but 25% still means it fails to win about
-three times out of four. That is the whole point. Football is mostly luck on the day, and a
+three times out of four. That is the whole point. There is a lot of chance in football, and a
 good model should tell you how uncertain things really are instead of pretending it knows the
 winner.
 
@@ -65,10 +65,12 @@ I left that in. A predictor you only show when it is right is not worth much.
 
 ### Every prediction, game by game
 
-Here is the full list for the 32 group games played so far: what the model picked before the
-tournament, how confident it was, and what actually happened. It got **19 of 32** right (59%).
-One thing worth knowing: the model never names a draw as its single most likely result, so most
-of its misses are games that ended level.
+The model got **19 of 32** right (59%). One thing worth knowing: it never names a draw as its
+single most likely result, so most of its misses are games that ended level. The full ledger of
+predictions made before the tournament:
+
+<details>
+<summary>All 32 group predictions (made before kickoff)</summary>
 
 | Date | Match | Model's pick | Score | Result | Right? |
 |---|---|---|---|---|:--:|
@@ -105,6 +107,8 @@ of its misses are games that ended level.
 | Jun 19 | Türkiye v Paraguay | Paraguay (38%) | 0-1 | Paraguay | ✓ |
 | Jun 19 | United States v Australia | United States (43%) | 2-0 | United States | ✓ |
 
+</details>
+
 ## How it works, in plain terms
 
 1. **Start with history.** Every senior international match since 1872, roughly 49,000 games.
@@ -115,7 +119,7 @@ of its misses are games that ended level.
    at the score it is trying to guess.
 3. **Three models give an opinion.** A simple statistical model (logistic regression), a
    pattern-finder (gradient boosting), and a goals model that predicts actual scorelines
-   (a Dixon–Coles Poisson process). They often disagree, which is useful information on its own.
+   (a Dixon-Coles Poisson process). They often disagree, which is useful information on its own.
 4. **Blend and calibrate.** I combine the three and tune the result so that when the model says
    "70% chance", it really happens about 70% of the time.
 
@@ -145,7 +149,7 @@ than quietly dropping the fold that made the average look better.
 This is the part I am most proud of, because the answer turned out to be "keep it simple".
 Instead of throwing every dataset at the model and reporting the best number, I tested each
 idea on its own, on the same World Cups, and only kept what genuinely helped both the
-probability quality **and** the accuracy.
+probability quality and the accuracy.
 
 | What I added | Probability score | Accuracy | Verdict |
 |---|---:|---:|---|
@@ -165,7 +169,7 @@ The short version of the journey:
   accuracy. Squad and player data made it clearly worse, because there is not enough World Cup
   history to learn from without overfitting.
 - I built a GPU XGBoost model and a PyTorch neural network to see if a heavier model would win.
-  Both trained without trouble on my RTX 4070 Ti and both produced worse forecasts. I rejected
+  Both trained without trouble on a single GPU and both produced worse forecasts. I rejected
   them on the numbers, not on a bug.
 - Weather and travel did nothing useful. Weather is also a trap, because you can only "know" the
   match-day weather after the fact, so I never let it into the real predictions.
@@ -220,7 +224,7 @@ how much the three models disagreed with each other.
 
 ## Under the hood
 
-Python, scikit-learn, a Dixon–Coles goals model, Monte Carlo tournament simulation, a FastAPI
+Python, scikit-learn, a Dixon-Coles goals model, Monte Carlo tournament simulation, a FastAPI
 service and a Streamlit dashboard. The training run rebuilds every feature in date order, checks
 for leakage, runs the five-World-Cup backtest with bootstrap confidence intervals, and saves a
 checksummed bundle. Reproduce it with:
