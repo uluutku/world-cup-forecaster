@@ -33,10 +33,18 @@ class OutcomeProbabilities(BaseModel):
     home_win: float
 
 
+class ScoreForecast(BaseModel):
+    expected_home_goals: float
+    expected_away_goals: float
+    most_likely_scoreline: str
+    scoreline_probability: float
+
+
 class MatchResponse(BaseModel):
     home_team: str
     away_team: str
     probabilities: OutcomeProbabilities
+    score_forecast: ScoreForecast
     model_disagreement: float
     experiment_id: str
 
@@ -104,6 +112,9 @@ def predict(request: MatchRequest) -> MatchResponse:
     probabilities = model.predict_proba(row[FEATURE_COLUMNS])[0]
     components = model.component_probabilities(row[FEATURE_COLUMNS])
     disagreement = float(np.std(np.stack(list(components.values())), axis=0).mean())
+    home_goals, away_goals = model.predict_goals(row[FEATURE_COLUMNS])
+    matrix = model.score_matrix(row[FEATURE_COLUMNS])[0]
+    likely_home, likely_away = (int(value) for value in np.unravel_index(int(matrix.argmax()), matrix.shape))
     return MatchResponse(
         home_team=request.home_team,
         away_team=request.away_team,
@@ -111,6 +122,12 @@ def predict(request: MatchRequest) -> MatchResponse:
             away_win=float(probabilities[0]),
             draw=float(probabilities[1]),
             home_win=float(probabilities[2]),
+        ),
+        score_forecast=ScoreForecast(
+            expected_home_goals=float(home_goals[0]),
+            expected_away_goals=float(away_goals[0]),
+            most_likely_scoreline=f"{likely_home}–{likely_away}",
+            scoreline_probability=float(matrix[likely_home, likely_away]),
         ),
         model_disagreement=disagreement,
         experiment_id=str(report["experiment"]["id"]),

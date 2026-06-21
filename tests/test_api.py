@@ -27,6 +27,16 @@ class DummyModel:
             "dixon_coles": np.array([[0.29, 0.26, 0.45]]),
         }
 
+    @staticmethod
+    def predict_goals(frame):
+        return np.array([1.6]), np.array([1.1])
+
+    @staticmethod
+    def score_matrix(frame, max_goals=7):
+        matrix = np.full((1, max_goals + 1, max_goals + 1), 0.001)
+        matrix[0, 2, 1] = 0.4
+        return matrix / matrix.sum(axis=(1, 2), keepdims=True)
+
 
 def test_health_has_stable_contract():
     response = TestClient(api.app).get("/health")
@@ -64,4 +74,14 @@ def test_prediction_contract_and_probability_simplex(monkeypatch):
         "home_team",
         "model_disagreement",
         "probabilities",
+        "score_forecast",
     }
+    score_forecast = payload["score_forecast"]
+    assert set(score_forecast) == {
+        "expected_home_goals",
+        "expected_away_goals",
+        "most_likely_scoreline",
+        "scoreline_probability",
+    }
+    assert score_forecast["most_likely_scoreline"] == "2–1"
+    assert 0.0 <= score_forecast["scoreline_probability"] <= 1.0
