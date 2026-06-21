@@ -21,6 +21,11 @@ face value. The detail is further down.
 
 ![2026 forecast](assets/visuals/forecast-social-card.png)
 
+[**Open the live World Cup Forecaster**](https://world-cup-forecaster.streamlit.app/)
+
+> **Note:** The free hosted app may need a short cold start after being inactive. If it is
+> waking up, please wait a moment for the model and dashboard to load.
+
 [![CI](https://github.com/uluutku/world-cup-forecaster/actions/workflows/ci.yml/badge.svg)](https://github.com/uluutku/world-cup-forecaster/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.11%20|%203.12%20|%203.13-3776AB)
 ![License](https://img.shields.io/badge/code-MIT-EF6A72)
