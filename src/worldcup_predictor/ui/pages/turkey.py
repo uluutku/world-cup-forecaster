@@ -8,6 +8,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
+from worldcup_predictor.ui.components import FULL_WIDTH
+
 
 def render_turkey_focus(
     *,
@@ -32,9 +34,9 @@ def render_turkey_focus(
     ].sort_values(["position", "number"])
 
     section(
-        "Türkiye intelligence room",
-        "Blind evidence, live forecast, and the official squad",
-        "The blind audit is immutable. Current probabilities come from the promoted hybrid; squad and event research remain separate evidence layers.",
+        "Türkiye in focus",
+        "Frozen predictions, live forecast, and the squad",
+        "The frozen predictions never change. The live chances come from the model in use; squad and event data are shown alongside, not mixed in.",
     )
     st.markdown(
         f"""
@@ -78,7 +80,7 @@ def render_turkey_focus(
         labels={"probability": "Outcome probability", "opponent": ""},
     )
     fig.update_xaxes(tickformat=".0%", range=[0, 1])
-    st.plotly_chart(style_chart(fig, 410), use_container_width=True)
+    st.plotly_chart(style_chart(fig, 410), **FULL_WIDTH)
 
     blind_display = blind[
         [
@@ -94,7 +96,7 @@ def render_turkey_focus(
     ].copy()
     st.dataframe(
         blind_display,
-        use_container_width=True,
+        **FULL_WIDTH,
         hide_index=True,
         column_config={
             "date": st.column_config.DateColumn("Date", format="MMM D"),
@@ -172,7 +174,7 @@ def render_turkey_focus(
                     "bgcolor": "rgba(0,0,0,0)",
                 },
             )
-            st.plotly_chart(style_chart(radar, 520), use_container_width=True)
+            st.plotly_chart(style_chart(radar, 520), **FULL_WIDTH)
         with right:
             comparison = squad_teams.assign(
                 focus=np.where(
@@ -198,7 +200,7 @@ def render_turkey_focus(
                     "total_caps": "Combined international caps",
                 },
             )
-            st.plotly_chart(style_chart(scatter, 520), use_container_width=True)
+            st.plotly_chart(style_chart(scatter, 520), **FULL_WIDTH)
 
     with players_tab:
         view = players.copy()
@@ -229,7 +231,7 @@ def render_turkey_focus(
                 },
                 title="Age, experience and scoring contribution",
             )
-            st.plotly_chart(style_chart(scatter, 560), use_container_width=True)
+            st.plotly_chart(style_chart(scatter, 560), **FULL_WIDTH)
         with right:
             goals = view.nlargest(12, "international_goals").sort_values(
                 "international_goals"
@@ -249,7 +251,7 @@ def render_turkey_focus(
                 title="International scoring depth",
                 labels={"international_goals": "Goals", "player": ""},
             )
-            st.plotly_chart(style_chart(bars, 560), use_container_width=True)
+            st.plotly_chart(style_chart(bars, 560), **FULL_WIDTH)
         st.dataframe(
             view[
                 [
@@ -265,7 +267,7 @@ def render_turkey_focus(
                     "experience_band",
                 ]
             ],
-            use_container_width=True,
+            **FULL_WIDTH,
             hide_index=True,
             column_config={
                 "age": st.column_config.NumberColumn(format="%.1f"),
@@ -382,7 +384,7 @@ def render_turkey_focus(
             display[
                 ["date", "home_team", "away_team", "status", "result_or_forecast"]
             ],
-            use_container_width=True,
+            **FULL_WIDTH,
             hide_index=True,
             column_config={
                 "date": st.column_config.DateColumn("Date", format="MMM D")
@@ -408,7 +410,7 @@ def render_turkey_focus(
         )
         bars.update_layout(title="United States vs Türkiye · June 25")
         bars.update_xaxes(tickformat=".0%", range=[0, 0.62])
-        st.plotly_chart(style_chart(bars, 380), use_container_width=True)
+        st.plotly_chart(style_chart(bars, 380), **FULL_WIDTH)
 
     with right:
         section(
@@ -437,7 +439,7 @@ def render_turkey_focus(
             tickformat=".0%",
             range=[0, max(0.55, scenario_view["round_32"].max() * 1.15)],
         )
-        st.plotly_chart(style_chart(bars, 430), use_container_width=True)
+        st.plotly_chart(style_chart(bars, 430), **FULL_WIDTH)
         win_advance = scenario_view.loc[
             scenario_view["scenario"].eq("Türkiye win"), "round_32"
         ].iloc[0]
@@ -469,4 +471,4 @@ def render_turkey_focus(
         color_discrete_sequence=[color["cyan"]],
     )
     curve.update_yaxes(tickformat=".1%")
-    st.plotly_chart(style_chart(curve, 430), use_container_width=True)
+    st.plotly_chart(style_chart(curve, 430), **FULL_WIDTH)

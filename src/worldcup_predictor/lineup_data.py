@@ -28,7 +28,7 @@ def build_statsbomb_lineup_summary(
     refresh: bool = False,
     workers: int = 12,
 ) -> pd.DataFrame:
-    """Build leakage-safe pre-kickoff lineup descriptors from StatsBomb lineups."""
+    """Build pre-kickoff lineup descriptors from StatsBomb lineups, without using the result."""
     if LINEUP_SUMMARY_PATH.exists() and not refresh:
         return pd.read_parquet(LINEUP_SUMMARY_PATH)
     matches = (

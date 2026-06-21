@@ -10,6 +10,7 @@ from worldcup_predictor.config import VISUAL_DIR
 from worldcup_predictor.features import FEATURE_COLUMNS
 from worldcup_predictor.ui.components import (
     COLOR,
+    FULL_WIDTH,
     image_data_uri,
     metric_card,
     probability_label,
@@ -20,7 +21,7 @@ from worldcup_predictor.ui.data import load_runtime
 from worldcup_predictor.ui.pages.turkey import render_turkey_focus
 
 st.set_page_config(
-    page_title="World Cup Intelligence · Research Platform",
+    page_title="World Cup Intelligence · 2026 Forecasts",
     page_icon="◉",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -160,11 +161,12 @@ with st.sidebar:
 st.markdown(
     """
     <div class="hero">
-      <div class="kicker">PROBABILISTIC TOURNAMENT INTELLIGENCE</div>
+      <div class="kicker">WORLD CUP 2026 FORECASTS</div>
       <h1>World Cup<br/>Intelligence</h1>
-      <p>A research platform for calibrated match forecasting, uncertainty quantification,
-      counterfactual scenarios, live tournament simulation, and model-risk analysis.</p>
-      <span class="chip">Leakage-safe</span><span class="chip">Dixon–Coles</span>
+      <p>A football model that predicts match outcomes, plays out the whole 2026 tournament
+      thousands of times, and shows you how sure it really is. It only ever uses what was
+      known before kickoff.</p>
+      <span class="chip">No future data</span><span class="chip">Dixon–Coles</span>
       <span class="chip">Conformal sets</span><span class="chip">Walk-forward validation</span>
     </div>
     """,
@@ -240,8 +242,8 @@ if page == "Command Center":
 
     section(
         "Live forecast",
-        "The tournament state, compressed",
-        "Stage probabilities combine observed 2026 results with 5,000 simulated continuations.",
+        "Where things stand right now",
+        "These chances mix the 2026 results played so far with 5,000 simulations of the games still to come.",
     )
     left, right = st.columns([1.25, 1])
     with left:
@@ -258,7 +260,7 @@ if page == "Command Center":
         )
         fig.update_layout(coloraxis_showscale=False)
         fig.update_xaxes(tickformat=".0%")
-        st.plotly_chart(style_chart(fig, 570), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 570), **FULL_WIDTH)
     with right:
         stages = simulation.head(12).set_index("team")[
             ["round_32", "quarterfinal", "semifinal", "final", "champion"]
@@ -275,12 +277,12 @@ if page == "Command Center":
             )
         )
         fig.update_layout(title="Tournament survival matrix")
-        st.plotly_chart(style_chart(fig, 570), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 570), **FULL_WIDTH)
 
     section(
         "Decision surface",
         "Where the next fixtures are hardest to call",
-        "Entropy measures irreducible outcome uncertainty; disagreement measures conflict between model families.",
+        "Entropy is how uncertain the outcome is; disagreement is how much the three models argue with each other.",
     )
     uncertain = fixtures.nlargest(12, "entropy").copy()
     fig = px.scatter(
@@ -297,7 +299,7 @@ if page == "Command Center":
         labels={"entropy": "Predictive entropy", "model_disagreement": "Model-family disagreement", "confidence": "Confidence"},
     )
     fig.update_traces(textposition="top center")
-    st.plotly_chart(style_chart(fig, 490), use_container_width=True)
+    st.plotly_chart(style_chart(fig, 490), **FULL_WIDTH)
 
 elif page == "Türkiye Focus":
     render_turkey_focus(
@@ -387,12 +389,12 @@ elif page == "Blind Tournament Audit":
         )
         fig.update_xaxes(tickformat=".0%")
         fig.update_yaxes(tickformat=".0%")
-        st.plotly_chart(style_chart(fig, 500), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 500), **FULL_WIDTH)
     with right:
         section(
             "Team lens",
             "Blind scorecard by national team",
-            "Team rows currently contain only one or two completed matches, so this is an audit—not a stable ranking.",
+            "Most teams have only played one or two games so far, so treat this as a quick check rather than a ranking.",
         )
         leaderboard_view = blind_leaderboard.copy()
         leaderboard_view["team"] = leaderboard_view["team"].replace(
@@ -403,7 +405,7 @@ elif page == "Blind Tournament Audit":
         )
         st.dataframe(
             leaderboard_view,
-            use_container_width=True,
+            **FULL_WIDTH,
             hide_index=True,
             height=470,
             column_config={
@@ -448,7 +450,7 @@ elif page == "Blind Tournament Audit":
                 "correct_pick",
             ]
         ],
-        use_container_width=True,
+        **FULL_WIDTH,
         hide_index=True,
         column_config={
             "date": st.column_config.DateColumn("Date", format="MMM D"),
@@ -554,7 +556,7 @@ elif page == "Model Evolution":
             },
         )
         fig.add_vline(x=0, line_color=COLOR["muted"])
-        st.plotly_chart(style_chart(fig, 600), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 600), **FULL_WIDTH)
     with right:
         fig = px.scatter(
             summary,
@@ -574,7 +576,7 @@ elif page == "Model Evolution":
         )
         fig.update_traces(textposition="top center")
         fig.update_yaxes(tickformat=".0%")
-        st.plotly_chart(style_chart(fig, 600), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 600), **FULL_WIDTH)
 
     section(
         "Stage-three matrix",
@@ -618,7 +620,7 @@ elif page == "Model Evolution":
             },
         )
         fig.add_vline(x=0, line_color=COLOR["muted"])
-        st.plotly_chart(style_chart(fig, 590), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 590), **FULL_WIDTH)
     with right:
         status_counts = (
             advanced_view.groupby("decision", as_index=False)
@@ -639,7 +641,7 @@ elif page == "Model Evolution":
             },
             title="Research disposition",
         )
-        st.plotly_chart(style_chart(fig, 590), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 590), **FULL_WIDTH)
 
     section(
         "Temporal stability",
@@ -666,7 +668,7 @@ elif page == "Model Evolution":
         )
     )
     fig.update_layout(title="Per-edition log-loss change versus baseline")
-    st.plotly_chart(style_chart(fig, 590), use_container_width=True)
+    st.plotly_chart(style_chart(fig, 590), **FULL_WIDTH)
 
     section(
         "Coverage registry",
@@ -675,7 +677,7 @@ elif page == "Model Evolution":
     )
     st.dataframe(
         coverage,
-        use_container_width=True,
+        **FULL_WIDTH,
         hide_index=True,
         column_config={
             "coverage": st.column_config.ProgressColumn(
@@ -700,7 +702,7 @@ elif page == "Advanced Laboratory":
     section(
         "Stage-three research",
         "Weather, event data, lineups, squads and CUDA models",
-        "Every candidate is compared against the same frozen baseline. Richer data is separated by when it is genuinely available before kickoff.",
+        "Every idea is tested against the same frozen baseline, and sorted by when its data is actually known before kickoff.",
     )
     hybrid = advanced_matrix.loc[
         (advanced_matrix["stage"].eq("Architecture"))
@@ -782,7 +784,7 @@ elif page == "Advanced Laboratory":
                 },
             )
             fig.add_vline(x=0, line_color=COLOR["muted"])
-            st.plotly_chart(style_chart(fig, 650), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 650), **FULL_WIDTH)
         with right:
             fig = px.scatter(
                 view,
@@ -801,7 +803,7 @@ elif page == "Advanced Laboratory":
             )
             fig.add_vline(x=0, line_color=COLOR["muted"])
             fig.add_hline(y=0, line_color=COLOR["muted"])
-            st.plotly_chart(style_chart(fig, 650), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 650), **FULL_WIDTH)
         display_matrix = advanced_matrix[
             [
                 "stage",
@@ -817,7 +819,7 @@ elif page == "Advanced Laboratory":
         ].copy()
         st.dataframe(
             display_matrix,
-            use_container_width=True,
+            **FULL_WIDTH,
             hide_index=True,
             column_config={
                 "log_loss": st.column_config.NumberColumn(
@@ -861,7 +863,7 @@ elif page == "Advanced Laboratory":
                 },
                 title="Architecture stability by World Cup",
             )
-            st.plotly_chart(style_chart(fig, 520), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 520), **FULL_WIDTH)
         with right:
             fig = px.bar(
                 architecture_summary.sort_values("log_loss", ascending=False),
@@ -880,10 +882,10 @@ elif page == "Advanced Laboratory":
                 title="Five-fold mean log loss",
             )
             fig.update_layout(showlegend=False)
-            st.plotly_chart(style_chart(fig, 520), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 520), **FULL_WIDTH)
         st.dataframe(
             architecture_summary,
-            use_container_width=True,
+            **FULL_WIDTH,
             hide_index=True,
             column_config={
                 "log_loss": st.column_config.NumberColumn(format="%.4f"),
@@ -973,7 +975,7 @@ elif page == "Advanced Laboratory":
                 title=f"{selected_team} · percentile versus 48 squads",
                 showlegend=False,
             )
-            st.plotly_chart(style_chart(fig, 530), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 530), **FULL_WIDTH)
         with right:
             fig = px.scatter(
                 squad_teams,
@@ -1008,7 +1010,7 @@ elif page == "Advanced Laboratory":
                     name=selected_team,
                 )
             )
-            st.plotly_chart(style_chart(fig, 530), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 530), **FULL_WIDTH)
         st.dataframe(
             team_players[
                 [
@@ -1023,7 +1025,7 @@ elif page == "Advanced Laboratory":
                     "club_country",
                 ]
             ],
-            use_container_width=True,
+            **FULL_WIDTH,
             hide_index=True,
             column_config={
                 "age": st.column_config.NumberColumn(format="%.1f"),
@@ -1058,7 +1060,7 @@ elif page == "Advanced Laboratory":
             ],
             columns=["Feature family", "Availability", "Evaluation", "Status"],
         )
-        st.dataframe(protocol, use_container_width=True, hide_index=True)
+        st.dataframe(protocol, **FULL_WIDTH, hide_index=True)
 
 elif page == "Tournament Engine":
     section(
@@ -1094,7 +1096,7 @@ elif page == "Tournament Engine":
         labels={"stage": "", "probability": "Reach probability"},
     )
     fig.update_yaxes(tickformat=".0%")
-    st.plotly_chart(style_chart(fig, 520), use_container_width=True)
+    st.plotly_chart(style_chart(fig, 520), **FULL_WIDTH)
 
     left, right = st.columns([1.2, 1])
     with left:
@@ -1113,7 +1115,7 @@ elif page == "Tournament Engine":
         )
         fig.update_xaxes(tickformat=".0%")
         fig.for_each_annotation(lambda annotation: annotation.update(text=annotation.text.replace("group=", "Group ")))
-        st.plotly_chart(style_chart(fig, 760), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 760), **FULL_WIDTH)
     with right:
         section("Path leverage", "Bracket efficiency", "Title conversion conditional on reaching the Round of 32.")
         leverage = simulation.copy()
@@ -1131,7 +1133,7 @@ elif page == "Tournament Engine":
         )
         fig.update_layout(coloraxis_showscale=False)
         fig.update_xaxes(tickformat=".0%")
-        st.plotly_chart(style_chart(fig, 760), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 760), **FULL_WIDTH)
 
 elif page == "Match Laboratory":
     section(
@@ -1221,7 +1223,7 @@ elif page == "Match Laboratory":
                 xaxis_title=f"{away} goals",
                 yaxis_title=f"{home} goals",
             )
-            st.plotly_chart(style_chart(fig, 520), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 520), **FULL_WIDTH)
         with right:
             component_rows = []
             for name, values in components.items():
@@ -1243,7 +1245,7 @@ elif page == "Match Laboratory":
                 title="Model-family vote",
             )
             fig.update_xaxes(tickformat=".0%")
-            st.plotly_chart(style_chart(fig, 520), use_container_width=True)
+            st.plotly_chart(style_chart(fig, 520), **FULL_WIDTH)
 
         section("Local explanation", "What moves this prediction", "One-feature counterfactual sensitivity around this exact matchup.")
         impacts = []
@@ -1267,7 +1269,7 @@ elif page == "Match Laboratory":
         )
         fig.update_layout(coloraxis_showscale=False)
         fig.update_xaxes(tickformat="+.1%")
-        st.plotly_chart(style_chart(fig, 490), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 490), **FULL_WIDTH)
 
 elif page == "Model Observatory":
     section(
@@ -1322,7 +1324,7 @@ elif page == "Model Observatory":
         )
         fig.update_traces(texttemplate="%{text:.3f}")
         fig.update_layout(showlegend=False)
-        st.plotly_chart(style_chart(fig), use_container_width=True)
+        st.plotly_chart(style_chart(fig), **FULL_WIDTH)
     with right:
         fig = px.scatter(
             challenger_view,
@@ -1345,7 +1347,7 @@ elif page == "Model Observatory":
         )
         fig.add_vline(x=0, line_color=COLOR["muted"])
         fig.add_hline(y=0, line_color=COLOR["muted"])
-        st.plotly_chart(style_chart(fig), use_container_width=True)
+        st.plotly_chart(style_chart(fig), **FULL_WIDTH)
 
     left, right = st.columns(2)
     with left:
@@ -1353,7 +1355,7 @@ elif page == "Model Observatory":
         fig.add_trace(go.Scatter(x=backtests["edition"], y=backtests["baseline_log_loss"], mode="lines+markers", name="Historical prior", line={"color": COLOR["muted"], "dash": "dash"}))
         fig.add_trace(go.Scatter(x=backtests["edition"], y=backtests["log_loss"], mode="lines+markers", name="Calibrated ensemble", line={"color": COLOR["cyan"], "width": 3}))
         fig.update_layout(title="Walk-forward World Cup log loss", yaxis_title="Log loss")
-        st.plotly_chart(style_chart(fig), use_container_width=True)
+        st.plotly_chart(style_chart(fig), **FULL_WIDTH)
     with right:
         ladder = benchmarks.groupby("model", as_index=False).agg(log_loss=("log_loss", "mean"), ece=("ece", "mean"), accuracy=("accuracy", "mean")).sort_values("log_loss")
         fig = px.scatter(
@@ -1367,7 +1369,7 @@ elif page == "Model Observatory":
             labels={"log_loss": "Mean log loss", "ece": "Expected calibration error"},
         )
         fig.update_traces(textposition="top center")
-        st.plotly_chart(style_chart(fig), use_container_width=True)
+        st.plotly_chart(style_chart(fig), **FULL_WIDTH)
 
     left, right = st.columns(2)
     with left:
@@ -1383,7 +1385,7 @@ elif page == "Model Observatory":
         fig.add_shape(type="line", x0=0, y0=0, x1=1, y1=1, line={"dash": "dash", "color": COLOR["muted"]})
         fig.update_xaxes(tickformat=".0%", range=[0, 0.9])
         fig.update_yaxes(tickformat=".0%", range=[0, 0.9])
-        st.plotly_chart(style_chart(fig), use_container_width=True)
+        st.plotly_chart(style_chart(fig), **FULL_WIDTH)
     with right:
         ablation_view = ablation.sort_values("log_loss_delta")
         fig = px.bar(
@@ -1398,7 +1400,7 @@ elif page == "Model Observatory":
             labels={"log_loss_delta": "Log-loss change vs full feature system", "configuration": ""},
         )
         fig.update_layout(coloraxis_showscale=False)
-        st.plotly_chart(style_chart(fig), use_container_width=True)
+        st.plotly_chart(style_chart(fig), **FULL_WIDTH)
 
     left, right = st.columns([1.15, 1])
     with left:
@@ -1413,7 +1415,7 @@ elif page == "Model Observatory":
             title="Held-out permutation importance",
         )
         fig.update_layout(coloraxis_showscale=False)
-        st.plotly_chart(style_chart(fig, 600), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 600), **FULL_WIDTH)
     with right:
         drift_view = drift.head(18).sort_values("psi")
         fig = px.bar(
@@ -1427,13 +1429,13 @@ elif page == "Model Observatory":
         )
         fig.add_vline(x=0.1, line_dash="dot", line_color=COLOR["gold"])
         fig.add_vline(x=0.25, line_dash="dot", line_color=COLOR["red"])
-        st.plotly_chart(style_chart(fig, 600), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 600), **FULL_WIDTH)
 
 elif page == "Team Atlas":
     section(
         "Latent state",
         "A multidimensional map of the 2026 field",
-        "Power is represented with uncertainty, trend, schedule quality, scoring profile, and consistency—not one rank.",
+        "Strength is shown with its uncertainty, trend, schedule quality, scoring profile and consistency, not as a single rank.",
     )
     active = ratings.loc[ratings["team"].isin(simulation["team"])].copy()
     certainty = 1 / active["rating_sigma"].clip(lower=1)
@@ -1453,7 +1455,7 @@ elif page == "Team Atlas":
     )
     fig.update_traces(textposition="top center")
     fig.update_yaxes(autorange="reversed")
-    st.plotly_chart(style_chart(fig, 650), use_container_width=True)
+    st.plotly_chart(style_chart(fig, 650), **FULL_WIDTH)
 
     section(
         "Roster-aware atlas",
@@ -1487,7 +1489,7 @@ elif page == "Team Atlas":
         },
     )
     fig.update_traces(textposition="top center")
-    st.plotly_chart(style_chart(fig, 620), use_container_width=True)
+    st.plotly_chart(style_chart(fig, 620), **FULL_WIDTH)
 
     selectors = st.columns([1, 1, 2])
     with selectors[0]:
@@ -1512,7 +1514,7 @@ elif page == "Team Atlas":
             labels={"embedding_x": "Latent dimension 1", "embedding_y": "Latent dimension 2"},
         )
         fig.update_traces(textposition="top center")
-        st.plotly_chart(style_chart(fig, 530), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 530), **FULL_WIDTH)
     with right:
         fig = go.Figure()
         for team, color in ((team_a, COLOR["cyan"]), (team_b, COLOR["gold"])):
@@ -1530,7 +1532,7 @@ elif page == "Team Atlas":
             title="Team fingerprint comparison",
             polar={"radialaxis": {"visible": True, "range": [0, 1], "gridcolor": COLOR["line"]}},
         )
-        st.plotly_chart(style_chart(fig, 530), use_container_width=True)
+        st.plotly_chart(style_chart(fig, 530), **FULL_WIDTH)
 
     st.dataframe(
         active[
@@ -1539,7 +1541,7 @@ elif page == "Team Atlas":
                 "attack", "defence", "clean_sheet_rate", "consistency", "schedule_strength",
             ]
         ].sort_values("elo", ascending=False),
-        use_container_width=True,
+        **FULL_WIDTH,
         hide_index=True,
         column_config={
             "elo": st.column_config.NumberColumn("Power", format="%.0f"),
@@ -1574,7 +1576,7 @@ else:
         for column, (title, path) in zip(columns, visuals[index : index + 2]):
             with column:
                 st.markdown(f"#### {title}")
-                st.image(path, use_container_width=True)
+                st.image(path, **FULL_WIDTH)
                 st.download_button(
                     f"Download {title}",
                     path.read_bytes(),
@@ -1603,7 +1605,7 @@ else:
         ],
         columns=["Field", "Value"],
     )
-    st.dataframe(manifest, use_container_width=True, hide_index=True)
+    st.dataframe(manifest, **FULL_WIDTH, hide_index=True)
 
     st.markdown(
         f"""

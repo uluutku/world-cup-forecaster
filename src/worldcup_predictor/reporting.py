@@ -360,7 +360,7 @@ def forecast_social_card(
         0.025,
         0.025,
         research_note
-        or "Leakage-safe · calibrated · uncertainty-aware · reproducible",
+        or "No future data · calibrated · uncertainty-aware · reproducible",
         color=MUTED,
         fontsize=9,
     )

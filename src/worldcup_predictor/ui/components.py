@@ -7,6 +7,23 @@ import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
 
+
+def _full_width_kwargs() -> dict[str, object]:
+    """Fill the container width in a way that works across Streamlit versions.
+
+    Streamlit 1.54 replaced ``use_container_width=True`` with ``width="stretch"``.
+    Passing the string form to an older build raises a TypeError, so pick the
+    argument that matches the installed version.
+    """
+    try:
+        major, minor = (int(part) for part in st.__version__.split(".")[:2])
+    except ValueError:
+        return {"width": "stretch"}
+    return {"width": "stretch"} if (major, minor) >= (1, 54) else {"use_container_width": True}
+
+
+FULL_WIDTH = _full_width_kwargs()
+
 COLOR = {
     "ink": "#050b14",
     "navy": "#071321",
