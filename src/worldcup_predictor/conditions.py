@@ -321,7 +321,7 @@ def _fetch_weather(date: str, latitude: float, longitude: float) -> dict:
 def _get_json(url: str, retries: int = 3) -> dict:
     for attempt in range(retries):
         try:
-            request = Request(url, headers={"User-Agent": "WorldCupIntelligence/2.0"})
+            request = Request(url, headers={"User-Agent": "WorldCupForecaster/2.0"})
             with urlopen(request, timeout=45) as response:
                 return json.loads(response.read().decode("utf-8"))
         except Exception:

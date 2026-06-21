@@ -13,7 +13,7 @@ from .config import MODEL_PATH, REPORT_PATH, SIMULATION_PATH
 from .features import FEATURE_COLUMNS
 
 app = FastAPI(
-    title="World Cup Intelligence API",
+    title="World Cup Forecaster API",
     description="Calibrated match probabilities and 2026 tournament forecasts.",
     version="2.0.0",
 )

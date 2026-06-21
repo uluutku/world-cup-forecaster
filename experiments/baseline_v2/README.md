@@ -1,6 +1,6 @@
 # Frozen baseline v2
 
-This directory is an immutable snapshot of World Cup Intelligence experiment
+This directory is an immutable snapshot of World Cup Forecaster experiment
 `wci-20260620T171813Z`.
 
 ## Contract

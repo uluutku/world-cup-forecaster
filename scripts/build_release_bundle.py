@@ -70,7 +70,7 @@ def main() -> None:
     )
     dist = ROOT / "dist"
     dist.mkdir(exist_ok=True)
-    archive_path = dist / f"world-cup-intelligence-{args.version}.zip"
+    archive_path = dist / f"world-cup-forecaster-{args.version}.zip"
     with zipfile.ZipFile(
         archive_path, "w", compression=zipfile.ZIP_DEFLATED
     ) as archive:

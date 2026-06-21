@@ -1,4 +1,4 @@
-# World Cup Intelligence
+# World Cup Forecaster
 
 I built a football model to answer one question that kept nagging me: if you train it
 carefully and never let it cheat by peeking at results it is supposed to predict, how well
@@ -21,7 +21,7 @@ face value. The detail is further down.
 
 ![2026 forecast](assets/visuals/forecast-social-card.png)
 
-[![CI](https://github.com/uluutku/world-cup-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/uluutku/world-cup-intelligence/actions/workflows/ci.yml)
+[![CI](https://github.com/uluutku/world-cup-forecaster/actions/workflows/ci.yml/badge.svg)](https://github.com/uluutku/world-cup-forecaster/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.11%20|%203.12%20|%203.13-3776AB)
 ![License](https://img.shields.io/badge/code-MIT-EF6A72)
 
@@ -191,7 +191,7 @@ python -m venv .venv
 source .venv/bin/activate
 
 pip install -e .
-worldcup-artifacts --url https://github.com/uluutku/world-cup-intelligence/releases/download/v2.0.0/world-cup-intelligence-v2.0.0.zip
+worldcup-artifacts --url https://github.com/uluutku/world-cup-forecaster/releases/download/v2.0.0/world-cup-forecaster-v2.0.0.zip
 streamlit run app.py
 ```
 

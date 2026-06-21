@@ -334,7 +334,7 @@ def run_pipeline(
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Train and evaluate World Cup Intelligence.")
+    parser = argparse.ArgumentParser(description="Train and evaluate World Cup Forecaster.")
     parser.add_argument("--refresh", action="store_true", help="Refresh the source dataset.")
     parser.add_argument("--simulations", type=int, default=5000)
     parser.add_argument("--skip-backtest", action="store_true")

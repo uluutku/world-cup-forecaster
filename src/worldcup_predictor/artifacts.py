@@ -67,7 +67,7 @@ def download_bundle(url: str) -> Path:
     temporary = Path(tempfile.mkdtemp(prefix="wci-artifacts-"))
     destination = temporary / "runtime.zip"
     request = urllib.request.Request(
-        url, headers={"User-Agent": "WorldCupIntelligence/2.0"}
+        url, headers={"User-Agent": "WorldCupForecaster/2.0"}
     )
     with urllib.request.urlopen(request, timeout=180) as response:
         with destination.open("wb") as output:

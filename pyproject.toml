@@ -3,9 +3,9 @@ requires = ["setuptools>=75", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "world-cup-intelligence"
+name = "world-cup-forecaster"
 version = "2.0.0"
-description = "Research-grade probabilistic World Cup forecasting and tournament intelligence."
+description = "Probabilistic World Cup match and tournament forecasting."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
@@ -47,9 +47,9 @@ dev = [
 gpu = ["torch>=2.6", "xgboost>=3.2"]
 
 [project.urls]
-Documentation = "https://github.com/uluutku/world-cup-intelligence#readme"
-Issues = "https://github.com/uluutku/world-cup-intelligence/issues"
-Repository = "https://github.com/uluutku/world-cup-intelligence"
+Documentation = "https://github.com/uluutku/world-cup-forecaster#readme"
+Issues = "https://github.com/uluutku/world-cup-forecaster/issues"
+Repository = "https://github.com/uluutku/world-cup-forecaster"
 
 [project.scripts]
 worldcup-train = "worldcup_predictor.pipeline:main"

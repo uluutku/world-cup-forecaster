@@ -36,7 +36,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "${GITHUB_REF_NAME}" \
-            dist/world-cup-intelligence-"${GITHUB_REF_NAME}".zip \
-            dist/world-cup-intelligence-"${GITHUB_REF_NAME}".zip.sha256 \
+            dist/world-cup-forecaster-"${GITHUB_REF_NAME}".zip \
+            dist/world-cup-forecaster-"${GITHUB_REF_NAME}".zip.sha256 \
             --generate-notes \
-            --title "World Cup Intelligence ${GITHUB_REF_NAME}"
+            --title "World Cup Forecaster ${GITHUB_REF_NAME}"

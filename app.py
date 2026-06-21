@@ -21,7 +21,7 @@ from worldcup_predictor.ui.data import load_runtime
 from worldcup_predictor.ui.pages.turkey import render_turkey_focus
 
 st.set_page_config(
-    page_title="World Cup Intelligence · 2026 Forecasts",
+    page_title="World Cup Forecaster · 2026",
     page_icon="◉",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -125,7 +125,7 @@ embedding = pd.DataFrame(report["team_embedding"])
 reliability = pd.DataFrame(report["reliability"])
 
 with st.sidebar:
-    st.markdown("### ◉ WCI")
+    st.markdown("### ◉ WCF")
     st.caption("PROBABILISTIC FOOTBALL RESEARCH")
     st.divider()
     page = st.radio(
@@ -162,7 +162,7 @@ st.markdown(
     """
     <div class="hero">
       <div class="kicker">WORLD CUP 2026 FORECASTS</div>
-      <h1>World Cup<br/>Intelligence</h1>
+      <h1>World Cup<br/>Forecaster</h1>
       <p>A football model that predicts match outcomes, plays out the whole 2026 tournament
       thousands of times, and shows you how sure it really is. It only ever uses what was
       known before kickoff.</p>

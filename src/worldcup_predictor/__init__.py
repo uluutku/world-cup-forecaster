@@ -1,4 +1,4 @@
-"""World Cup Intelligence forecasting package."""
+"""World Cup Forecaster forecasting package."""
 
 from .model import MatchEnsemble
 

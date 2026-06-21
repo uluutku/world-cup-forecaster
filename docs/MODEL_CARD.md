@@ -1,4 +1,4 @@
-# Model card: World Cup Intelligence v2
+# Model card: World Cup Forecaster v2
 
 ## What it's for
 
