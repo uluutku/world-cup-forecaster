@@ -21,7 +21,7 @@ face value. The detail is further down.
 
 [**Open the live World Cup Forecaster**](https://world-cup-forecaster.streamlit.app/)
 
-> **Note:** I used a free hosting, so app may need a short cold start after being inactive. If it is
+> **Note:** Because of hosting, app may need a short cold start after being inactive. If it is
 > waking up, please wait a moment for the model and dashboard to load.
 
 
