@@ -1,2 +1,4 @@
+# Pinned runtime versions the published model was trained with, so a fresh
+# deploy (Streamlit Cloud, etc.) loads the joblib bundle without version drift.
+-r requirements.lock
 -e .
-
