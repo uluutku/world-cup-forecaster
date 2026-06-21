@@ -1,40 +1,45 @@
-# Advanced Experiment Protocol
+# Advanced experiments
 
-This stage asks whether more data or more compute improves the frozen v2 forecast.
+After freezing the v2 model, I tested whether more data or a heavier model would beat it. I tried
+each idea on its own, on the same World Cups, so I could see its real effect instead of burying it
+in a pile of other changes.
 
-## Controlled families
+## What I tried
 
-- Environment: travel distance, timezone displacement, elevation, temperature, apparent
-  temperature, humidity, precipitation, wind, gusts and pressure.
-- Event history: xG balance, shots, shot quality, possession share, passing, pressure,
-  counterpressure, set-piece xG, transition xG and final-third entries.
-- Announced lineup: XI continuity, changes, prior starts, debut share, goalkeeper change and
-  positional shape.
-- Current squad: age, height, caps, goals, club dispersion, domestic share, top-five-league share,
-  positional depth and concentration.
-- Architecture: calibrated hybrid, CUDA XGBoost and a CUDA residual tabular network.
+- **Environment:** travel distance, timezone shift, altitude, temperature, humidity, rain, wind and
+  air pressure.
+- **Event data (StatsBomb):** xG balance, shots and shot quality, possession, passing, pressing,
+  set-piece and transition xG, final-third entries.
+- **Announced lineups:** how much the starting XI changed, prior starts, debutant share, goalkeeper
+  changes and shape.
+- **Current squads:** age, height, caps, goals, how spread across clubs and leagues, and positional
+  depth.
+- **Heavier models:** a GPU XGBoost and a GPU residual neural network, against the calibrated
+  hybrid.
 
-## Leakage boundaries
+## Rules I kept so nothing cheats
 
-ERA5 weather is retrospective reanalysis and is labeled `oracle only`. It cannot be promoted to live
-forecasting. The production weather adapter must use an archived forecast run timestamped before
-kickoff.
+ERA5 weather is looked up after the fact, so it is marked "oracle only" and can never go into a live
+forecast. A real weather feature would have to use a forecast that was published before kickoff.
 
-Starting-XI features are joined only to the exact fixture. They belong to a late model that runs after
-official lineup publication. They are never forward-filled into an earlier forecast.
+Lineup features are attached only to the exact match they belong to. They are part of a separate
+late model that runs once the official XI is out, and they are never copied back onto an earlier
+forecast.
 
-Event profiles use an as-of join with exact matches disabled. A match can update a team's profile only
-for later fixtures.
+Event data uses an as-of join: a match can only update a team's profile for later games, never its
+own.
 
-## Promotion rule
+## When something gets promoted
 
-A normal pre-match family needs all five World Cup folds, lower mean log loss, no accuracy regression,
-acceptable calibration, adequate source coverage, and demonstrated 2026 availability. One-fold gains
-are research signals, not production upgrades.
+A normal pre-match feature has to clear a real bar before it replaces the baseline: all five World
+Cup folds, a lower average log loss, no drop in accuracy, calibration that still holds, enough data
+coverage, and proof it is actually available for 2026. A gain on a single tournament is an
+interesting signal, not a reason to ship it.
 
-## Product-wide integration
+## Where this shows up in the app
 
-The advanced stage is propagated across all dashboard workspaces and publication graphics. Each
-surface distinguishes immutable blind evidence, promoted production probabilities, and staged
-research. Türkiye Focus additionally exposes the complete official squad, player experience,
-international scoring, club geography, roster percentiles, and explicit strengths/risks.
+The findings run through the whole dashboard and the generated graphics. Every view keeps three
+things apart: the frozen pre-tournament predictions, the probabilities actually in use, and the
+research that didn't make the cut. The Türkiye page goes further, showing the full official squad,
+experience, international goals, where the players play, squad percentiles, and the clear strengths
+and risks.

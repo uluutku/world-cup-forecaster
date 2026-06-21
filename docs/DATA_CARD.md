@@ -1,50 +1,49 @@
-# Data Card — International Match Results
+# Data card: international match results
 
-## Source
+## Where the data comes from
 
-The project uses the maintained
-[`martj42/international_results`](https://github.com/martj42/international_results) dataset.
-It covers senior men's full internationals and includes date, teams, score, tournament, location,
-and neutral-venue status.
+The model trains on the
+[`martj42/international_results`](https://github.com/martj42/international_results) dataset, which is
+kept up to date and lists every senior men's international: date, teams, score, tournament,
+location, and whether it was played at a neutral venue.
 
-The training pipeline downloads the source file directly and records its SHA-256 in
-`artifacts/report.json`.
+The training run downloads it directly and saves the file's SHA-256 in `artifacts/report.json`, so
+you can always tell which exact snapshot produced a given result.
 
-## Current snapshot
+## What's in it right now
 
-- 49,437 completed matches;
-- observations beginning in 1872;
-- scheduled 2026 World Cup group fixtures;
-- full-time scores excluding penalty shootout results.
+- 49,437 completed matches,
+- going back to 1872,
+- plus the scheduled 2026 World Cup group fixtures,
+- full-time scores, not counting penalty shootouts.
 
-The exact snapshot changes as the upstream dataset is maintained. Run metadata should be used instead
-of assuming these counts are permanent.
+These numbers move as the upstream dataset is maintained, so trust the run metadata rather than
+assuming the figures above are fixed.
 
-## Data quality checks
+## Checks on the way in
 
-The ingestion layer verifies required columns, parses dates, orders matches chronologically,
-separates completed matches from fixtures, and prevents unplayed matches from updating team state.
+Before anything is used, the ingestion step confirms the expected columns are there, parses the
+dates, sorts matches into date order, splits played games from upcoming ones, and makes sure an
+unplayed match can never update a team's state.
 
-Tests explicitly verify that:
+There are tests that specifically check that:
 
-- a match cannot influence its own features;
-- future fixtures do not update ratings;
-- score probabilities remain normalized;
-- group inference creates correct connected components.
+- a match cannot influence its own features,
+- upcoming fixtures don't move any ratings,
+- score probabilities always add up to one,
+- group inference recovers the right groups from the fixture list.
 
-## Transformations
+## How it's transformed
 
-The raw data is not randomly shuffled. It is passed through a sequential state engine. Training
-features therefore represent information available before each kickoff.
+The data is never shuffled. It runs through the state engine in date order, so every feature for a
+match only reflects what was known before kickoff.
 
-Older observations are retained for state continuity, while model fitting uses a 28-year rolling
-window and exponential recency weights.
+Old matches are kept so team state stays continuous, but the model itself is fit on a 28-year
+rolling window with more weight on recent games.
 
-## Limitations and representation
+## Limits
 
-Match availability is not uniform across countries or eras. Stronger federations and modern periods
-are generally more densely observed. Tournament labels vary, historical national identities involve
-succession choices, and result-only data cannot represent player-level or event-level match quality.
-
-The system exposes rating uncertainty and activity partly to make sparse-data risk visible.
-
+Coverage isn't even across countries or eras. Bigger federations and recent years are recorded in
+far more detail. Tournament names change over time, some national identities involve judgement about
+which country succeeded which, and results-only data can't capture how good a performance actually
+was. The model exposes its rating uncertainty partly to keep this thin-data risk visible.

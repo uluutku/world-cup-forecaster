@@ -1,40 +1,37 @@
-# Model Card — World Cup Intelligence v2
+# Model card: World Cup Intelligence v2
 
-## Intended use
+## What it's for
 
-World Cup Intelligence estimates three-way match outcomes and tournament stage probabilities for
-senior men's international football. It is designed for research,
-demonstration, scenario analysis, and portfolio evaluation.
+It estimates win / draw / loss chances for senior men's international matches, and how far each
+team is likely to go in a tournament. I built it for research, demonstration and scenario
+analysis.
 
-It is not intended for automated betting, financial decisions, player selection, or decisions that
-affect athletes.
+It is not built for betting, financial decisions, picking players, or anything that affects real
+athletes.
 
-## Model architecture
+## What's inside
 
-The production forecast blends:
+The forecast blends four things:
 
-- regularized multinomial logistic regression;
-- histogram gradient boosting;
-- two Poisson goal-intensity regressors;
-- a fitted Dixon–Coles correction for dependence among low-scoring outcomes.
+- a regularised multinomial logistic regression,
+- a histogram gradient-boosting classifier,
+- two Poisson goal-rate models (one per team),
+- a Dixon–Coles correction that handles how low-scoring results depend on each other.
 
-Blend weights are optimized on the probability simplex using a chronological calibration window.
-Temperature scaling is optimized jointly with the blend. Training examples receive tournament
-importance and exponential recency weights.
+The blend weights and the calibration temperature are tuned together on a chronological hold-out
+window. Training games are weighted by how recent and how important they were.
 
-## Feature state
+## The features
 
-All state is computed sequentially before kickoff. Feature families include dynamic team rating,
-rating uncertainty, volatility, form, momentum, attack/defence processes, trend, clean-sheet and
-scoring rates, consistency, activity, rest, schedule strength, opponent prestige, major-tournament
-form, experience, venue context, and head-to-head history.
+Everything is built in date order, before kickoff. For each team I track a dynamic rating and how
+confident that rating is, volatility, form, momentum, attack and defence, trend, clean-sheet and
+scoring rates, consistency, how active and rested they are, schedule strength, opponent prestige,
+major-tournament form, experience, home or neutral context, and head-to-head record.
 
-## Evaluation protocol
+## How it's tested
 
-The model is retrained at the start of the 2006, 2010, 2014, 2018, and 2022 World Cups. Test matches
-are never used to construct pre-match state, select blend parameters, or calibrate temperature.
-
-Current aggregate results:
+I retrain from scratch before the 2006, 2010, 2014, 2018 and 2022 World Cups and predict each one.
+A test match is never used to build pre-match state, choose blend weights, or set the calibration.
 
 | Metric | Result |
 |---|---:|
@@ -45,42 +42,40 @@ Current aggregate results:
 | Ranked probability score | 0.196 |
 | Expected calibration error | 0.101 |
 
-The 2022 fold underperforms the historical-prior baseline. This is reported as a model-risk signal,
-not removed as an outlier.
+2022 came out worse than simply guessing from historical win/draw/loss rates. I report that as a
+sign of model risk rather than dropping the fold.
 
-## Uncertainty
+## How it shows uncertainty
 
-- bootstrap intervals quantify evaluation sampling uncertainty;
-- adaptive conformal prediction sets quantify outcome-set uncertainty;
-- dynamic rating variance captures sparse or inactive teams;
-- model-family disagreement highlights epistemic disagreement;
-- predictive entropy highlights intrinsically difficult fixtures;
-- Population Stability Index reports changing feature distributions.
+- bootstrap intervals for how much the score could move on a different sample of matches,
+- conformal prediction sets for outcome-level uncertainty,
+- rating variance for teams that are sparse or inactive,
+- disagreement between the three models, which flags genuinely unclear games,
+- predictive entropy for matches that are hard by nature,
+- a population-stability check for features whose distribution is drifting.
 
-Adaptive conformal coverage is empirical and can miss its nominal target under temporal shift.
+Conformal coverage is measured, not guaranteed, and can fall short of its target when things shift
+over time.
 
-## Staged research findings
+## What I tested and parked
 
-- travel and country-centroid timezone proxies regress the five-fold benchmark;
-- retrospective ERA5 weather also regresses and is retained only as an oracle experiment;
-- StatsBomb event history improves 2022 probability quality but has insufficient temporal coverage;
-- announced-lineup continuity and shape features do not improve the 2022 fold;
-- CUDA XGBoost and a residual tabular network underperform the calibrated hybrid;
-- official 2026 squad intelligence is available for all 48 teams but lacks equivalent historical
-  snapshots required for production promotion.
+- travel and timezone proxies made the backtest worse,
+- retrospective ERA5 weather also made it worse and is kept only as an after-the-fact experiment,
+- StatsBomb event data helped on 2022, but I only have it for that one tournament,
+- announced-lineup features didn't help the 2022 fold,
+- a GPU XGBoost and a residual neural net both lost to the calibrated hybrid,
+- official 2026 squad data exists for all 48 teams but there's no matching history to test it on,
+  so it stays as context rather than going into the forecast.
 
-## Known limitations
+## Known limits
 
-The production model does not directly observe player injuries, tactical assignments, authenticated
-club workload, market prices, or archived pre-kickoff weather forecasts. Starting lineups are handled
-by a separate late-information model, not assumed available for early forecasts. Historical
-national-team identity and country naming can involve succession assumptions inherited from source
-data.
+The production model doesn't see injuries, tactics, real club workload, market prices, or archived
+weather forecasts. Starting lineups are handled by a separate late model, not assumed to be
+available for early forecasts. Historical team identities involve a few succession calls inherited
+from the source data. The tournament simulation approximates third-place bracket assignment when the
+full FIFA rule isn't present in the fixture data.
 
-Tournament simulation approximates third-place bracket assignment when the complete FIFA lookup is
-not available in the source fixture data.
+## Reproducing a run
 
-## Reproducibility
-
-Each run stores a data SHA-256, experiment identifier, software versions, seed, model parameters,
-backtest predictions, diagnostic tables, and generated figures.
+Every run records the data SHA-256, an experiment id, software versions, the random seed, the model
+parameters, the backtest predictions, the diagnostic tables, and the generated figures.
