@@ -44,7 +44,7 @@ def _save(fig: plt.Figure, filename: str) -> Path:
 
 
 def _brand(fig: plt.Figure, section: str) -> None:
-    fig.text(0.025, 0.982, "WORLD CUP INTELLIGENCE", color=CYAN, fontsize=9, weight="bold", va="top")
+    fig.text(0.025, 0.982, "WORLD CUP FORECASTER", color=CYAN, fontsize=9, weight="bold", va="top")
     fig.text(0.975, 0.982, section.upper(), color=MUTED, fontsize=8, ha="right", va="top")
 
 def advanced_research_chart(

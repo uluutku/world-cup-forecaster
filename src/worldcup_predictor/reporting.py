@@ -53,7 +53,7 @@ def _save(fig: plt.Figure, filename: str) -> Path:
 
 
 def _brand(fig: plt.Figure, section: str) -> None:
-    fig.text(0.025, 0.982, "WORLD CUP INTELLIGENCE", color=CYAN, fontsize=9, weight="bold", va="top")
+    fig.text(0.025, 0.982, "WORLD CUP FORECASTER", color=CYAN, fontsize=9, weight="bold", va="top")
     fig.text(0.975, 0.982, section.upper(), color=MUTED, fontsize=8, ha="right", va="top")
 
 
@@ -327,7 +327,7 @@ def forecast_social_card(
     mean_loss = backtests["log_loss"].mean()
     baseline = backtests["baseline_log_loss"].mean()
     ax_title.text(0, 0.82, "WORLD CUP", fontsize=42, weight="bold", color=TEXT)
-    ax_title.text(0, 0.33, "INTELLIGENCE", fontsize=42, weight="bold", color=CYAN)
+    ax_title.text(0, 0.33, "FORECASTER", fontsize=42, weight="bold", color=CYAN)
     ax_title.text(0.57, 0.72, "CURRENT TITLE FAVORITE", color=MUTED, fontsize=10, weight="bold")
     ax_title.text(0.57, 0.31, favorite["team"], color=TEXT, fontsize=32, weight="bold")
     ax_title.text(0.91, 0.31, f"{favorite['champion']:.1%}", color=CYAN, fontsize=32, weight="bold", ha="right")
