@@ -10,7 +10,7 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-from .config import ROOT, RUNTIME_MANIFEST_PATH
+from .config import RELEASE_BUNDLE_URL, ROOT, RUNTIME_MANIFEST_PATH
 
 
 def sha256(path: Path) -> str:
@@ -79,7 +79,9 @@ def ensure_runtime_artifacts() -> list[str]:
     errors = verify_runtime()
     if not errors:
         return []
-    url = os.getenv("WCI_ARTIFACT_BUNDLE_URL")
+    # Default to the published release so a fresh clone or a host without the
+    # environment variable set (Streamlit Cloud, a clean checkout) self-bootstraps.
+    url = os.getenv("WCI_ARTIFACT_BUNDLE_URL", RELEASE_BUNDLE_URL)
     if not url:
         return errors
     bundle = download_bundle(url)

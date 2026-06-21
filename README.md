@@ -236,7 +236,8 @@ pytest
 ```
 
 More detail lives in [docs/MODEL_CARD.md](docs/MODEL_CARD.md),
-[docs/DATA_CARD.md](docs/DATA_CARD.md) and
+[docs/DATA_CARD.md](docs/DATA_CARD.md),
+[docs/DATA_SOURCES.md](docs/DATA_SOURCES.md) and
 [docs/ADVANCED_EXPERIMENTS.md](docs/ADVANCED_EXPERIMENTS.md). Data sources and their licences are
 listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 

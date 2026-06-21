@@ -27,6 +27,11 @@ FJELSTUL_BASE_URL = (
     "https://raw.githubusercontent.com/jfjelstul/worldcup/master/data-csv"
 )
 
+RELEASE_BUNDLE_URL = (
+    "https://github.com/uluutku/world-cup-forecaster/releases/download/"
+    "v2.0.0/world-cup-forecaster-v2.0.0.zip"
+)
+
 RANDOM_SEED = 2026
 MODEL_PATH = ARTIFACT_DIR / "model.joblib"
 FEATURES_PATH = ARTIFACT_DIR / "features.parquet"
