@@ -1,10 +1,19 @@
 import numpy as np
 
+from worldcup_predictor.features import FEATURE_COLUMNS
 from worldcup_predictor.model import (
+    MatchEnsemble,
     apply_temperature,
     dixon_coles_score_matrix,
     poisson_outcome_probabilities,
 )
+
+
+def test_old_model_without_feature_columns_falls_back():
+    # Models pickled before `feature_columns` existed must still load and predict.
+    model = MatchEnsemble()
+    del model.__dict__["feature_columns"]
+    assert model.feature_columns == FEATURE_COLUMNS
 
 
 def test_poisson_probabilities_sum_to_one():

@@ -128,6 +128,13 @@ class MatchEnsemble:
         self.dc_rho = 0.0
         self.feature_importance_: pd.DataFrame | None = None
 
+    def __getattr__(self, name: str) -> object:
+        # Models pickled before `feature_columns` was added should still load
+        # and predict, so fall back to the default column list for old artifacts.
+        if name == "feature_columns":
+            return FEATURE_COLUMNS
+        raise AttributeError(f"{type(self).__name__!r} object has no attribute {name!r}")
+
     @staticmethod
     def _sample_weight(dates: pd.Series, importance: pd.Series) -> np.ndarray:
         age_years = (dates.max() - dates).dt.days.to_numpy() / 365.25
