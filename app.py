@@ -142,7 +142,7 @@ with st.sidebar:
             "Team Atlas",
             "Research Artifacts",
         ],
-        index=1,
+        index=0,
         label_visibility="collapsed",
     )
     st.divider()
